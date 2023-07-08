@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.8'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '11'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = false
+}
+
+//test {
+//    enabled = true
+//    useJUnitPlatform()
+//}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-mail'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    compileOnly 'org.projectlombok:lombok'
+//    runtimeOnly 'com.mysql:mysql-connector-j'
+//    implementation 'org.liquibase:liquibase-core'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+//    implementation "software.amazon.awssdk:s3:${awsS3Version}"
+//    implementation "org.jsoup:jsoup:${jsoupVersion}"
+//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation "org.apache.commons:commons-text:${commonsTextVersion}"
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    implementation "commons-codec:commons-codec:${commonsCodecVersion}"
+}

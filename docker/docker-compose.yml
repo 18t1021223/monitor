@@ -1,0 +1,70 @@
+services:
+  app:
+    build: ../
+    restart: always
+#    environment:
+#      - SPRING.DATASOURCE.URL=jdbc:mysql://mysql-db:3306/pathology?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+#      - SPRING.DATASOURCE.PASSWORD=123
+#      - SPRING.DATASOURCE.USERNAME=pathologyuser
+    ports:
+      - "8097:8097"
+#    depends_on:
+#      - mysql-db
+    volumes:
+      - log_volume:/logs
+
+#  mysql-db:
+#    image: mysql:8.0
+#    hostname: mysql-db
+#    environment:
+#      - MYSQL_PASSWORD=123
+#      - MYSQL_USER=pathologyuser
+#      - MYSQL_DATABASE=pathology
+#      - MYSQL_ROOT_PASSWORD=123
+#      - MYSQL_ROOT_HOST= '%'
+#    restart: always
+#    ports:
+#      - "3307:3306"
+#    volumes:
+#      - db-data:/var/lib/mysql
+
+  prometheus:
+    image: prom/prometheus:v2.37.7
+    container_name: monitoring-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+    ports:
+      - "9090:9090"
+
+  promtail:
+    image: grafana/promtail:2.2.1
+    container_name: monitoring-promtail
+    volumes:
+      - ./promtail/promtail-docker-config.yaml:/etc/promtail/docker-config.yaml
+      - log_volume:/var/log/
+    command: "--config.file=/etc/promtail/docker-config.yaml"
+
+  loki:
+    image: grafana/loki:2.2.1
+    container_name: monitoring-loki
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+
+  grafana:
+    image: grafana/grafana:9.5.1
+    container_name: monitoring-grafana
+    volumes:
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - loki
+
+volumes:
+  log_volume:
+    driver: local
+  db-data:
+    driver: local

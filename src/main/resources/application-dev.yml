@@ -1,0 +1,63 @@
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            clientId: x
+#            clientSecret: x
+#            scope:
+#              - email
+#              - profile
+##              - openid
+#        provider:
+#          google:
+#            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent
+#  mvc:
+#    log-request-details: false
+#  # DATABASE
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/pathology?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+#    username: root
+#    password:
+##    url: jdbc:mysql://103.149.86.229:3307/pathology?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+##    username: pathologyuser
+##    password: 123
+#  jpa:
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        format_sql: false
+#  # MAIL
+#  mail:
+#    host: mail.privateemail.com
+#    port: 587
+#    username: x
+#    password: x
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            required: true
+#            enable: true
+#
+#app:
+#  aws:
+#    accessKey: x
+#    secretKey: x
+#    region: ap-southeast-2
+#    s3:
+#      bucketName: image-dev0154
+#      preExpired: 5m
+#  email:
+#    sender: x
+#    alias: x
+#    domain: http://localhost:8097
+#  post:
+#    maxApproveExpiredTime: 72h
+#    img-domain: x
+#  admin:
+#    email: phamanhnhat3210@gmail.com
+#  superAdmin:
+#    email: phamanhnhat3210@gmail.com

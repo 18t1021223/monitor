@@ -1,0 +1,57 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - info
+          - health
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+
+server:
+  tomcat:
+    max-http-form-post-size: 30MB
+  servlet:
+    session:
+      timeout: 60s
+      tracking-modes: cookie
+      cookie:
+        http-only: true
+  http2:
+    enabled: true
+#spring:
+#  # HIKARICP
+#  datasource:
+#    # https://techgry.com/concepts/02-maxLifetime
+#    hikari:
+#      connection-timeout: 300000 # 5m ensures that new connections can be created in time if existing connections fail.
+#      maximum-pool-size: 15
+#      minimum-idle: 2
+#      max-lifetime: 1800000 # 30m, The maxLifetime (in milliseconds) value of your client should be less than the wait_timeout (in seconds)
+#      # value of your MySQL instance. This way the client will always terminate the connection before the database tries to.
+#      # The other way around, the client will try to act upon a closed connection and you will get the above mentioned warnings in your log file.
+#      idle-timeout: 900000 # 15m
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#      use-new-id-generator-mappings: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+#        jdbc:
+#          batch_size: 1000
+#        order_updates: true
+#    open-in-view: false
+#  # FILE
+#  servlet:
+#    multipart:
+#      max-request-size: 30MB
+#      max-file-size: 30MB
+#  # LIQUIBASE
+#  liquibase:
+#    change-log: classpath:liquibase/master.xml
